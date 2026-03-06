@@ -13,7 +13,8 @@
         <div class="header-title" id="headerTitle">1장: 게임 흐름 요약</div>
         <button class="header-info-btn hidden" id="headerPartInfoBtn" type="button" data-role="part-info-open" aria-label="현재 순서 규칙 안내">i</button>
         <div class="header-controls">
-          <button class="header-part-end-btn hidden" id="headerPartEndBtn" type="button" data-role="part-end-open">Part 1 종료</button>
+          <button class="header-part-end-btn hidden" id="headerPartEndBtn" type="button" data-role="part-end-open">이야기 카드 A 공개</button>
+          <button class="header-part-end-btn hidden" id="headerPart2EndBtn" type="button" data-role="part2-end-open">이야기 카드 B 공개</button>
           <button class="rules-book-btn" id="headerRulesBookBtn" type="button" data-role="rules-book-open" style="display:none;" aria-label="규칙 열기">
             <svg class="rules-book-icon" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
               <path d="M3.5 34.5L10.5 11.5c7 2 14 0 21.5 5.8 7.5-5.8 14.5-3.8 21.5-5.8l7 23c-10.5-2-19.6-.7-28.5 6-8.9-6.7-18-8-28.5-6Z" />
@@ -160,9 +161,9 @@
           <h3 class="intro-center-title">각자 자기소개를 진행해주세요.</h3>
         </section>
 
-        <section class="slide part1-order-slide" data-index="7" data-title="Part 1시작 및 진행 순서">
+        <section class="slide part1-order-slide" data-index="7" data-title="[파트 1] 진행 순서">
           <div class="part1-order-wrap">
-            <h2 class="part1-order-title">Part 1시작 및 진행 순서</h2>
+            <h2 class="part1-order-title">[파트 1] 진행 순서</h2>
             <div class="part1-order-flow">
               <button class="part1-order-btn" type="button" data-rule-topic="행선지 상의 및 결정">행선지 상의 및 결정</button>
               <div class="part1-order-arrow">↓</div>
@@ -172,9 +173,10 @@
               <div class="part1-order-arrow">↓</div>
               <button class="part1-order-btn" type="button" data-rule-topic="다음 라운드 리더 지명">다음 라운드 리더 지명</button>
             </div>
+            <p class="round1-leader-note">총 3 라운드 진행</p>
           </div>
         </section>
-<section class="slide timer-slide" data-index="8" data-title="[Part 1] 1Round: 행선지 상의 및 결정" data-part-info-title="[Part 1] 1Round: 행선지 상의 및 결정">
+<section class="slide timer-slide" data-index="8" data-title="[파트 1] 1라운드: 행선지 상의 및 결정" data-part-info-title="[파트 1] 1라운드: 행선지 상의 및 결정">
           <div class="timer-widget" data-timer-widget data-initial-seconds="180">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -191,7 +193,7 @@
           <p class="round1-leader-note">첫 리더는 <span class="name-collector">[수집가]</span>가 담당합니다.</p>
         </section>
 
-        <section class="slide timer-slide" data-index="9" data-title="[Part 1] 1Round: 탐색 및 정보 공유" data-part-info-title="[Part 1] 1Round: 탐색 및 정보 공유">
+        <section class="slide timer-slide" data-index="9" data-title="[파트 1] 1라운드: 탐색 및 정보 공유" data-part-info-title="[파트 1] 1라운드: 탐색 및 정보 공유">
           <div class="timer-widget" data-timer-widget data-initial-seconds="600">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -207,7 +209,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="10" data-title="[Part 1] 1Round: 인물 관찰 및 정보 공유" data-part-info-title="[Part 1] 1Round: 인물 관찰 및 정보 공유">
+        <section class="slide timer-slide" data-index="10" data-title="[파트 1] 1라운드: 인물 관찰 및 정보 공유" data-part-info-title="[파트 1] 1라운드: 인물 관찰 및 정보 공유">
           <div class="timer-widget" data-timer-widget data-initial-seconds="360">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -223,7 +225,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="11" data-title="[Part 1] 1Round: 다음 라운드 리더 지명" data-part-info-title="[Part 1] 1Round: 다음 라운드 리더 지명">
+        <section class="slide timer-slide" data-index="11" data-title="[파트 1] 1라운드: 다음 라운드 리더 지명" data-part-info-title="[파트 1] 1라운드: 다음 라운드 리더 지명">
           <div class="timer-widget" data-timer-widget data-initial-seconds="60">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -239,7 +241,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="12" data-title="[Part 1] 2Round: 행선지 상의 및 결정" data-part-info-title="[Part 1] 2Round: 행선지 상의 및 결정">
+        <section class="slide timer-slide" data-index="12" data-title="[파트 1] 2라운드: 행선지 상의 및 결정" data-part-info-title="[파트 1] 2라운드: 행선지 상의 및 결정">
           <div class="timer-widget" data-timer-widget data-initial-seconds="180">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -255,7 +257,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="13" data-title="[Part 1] 2Round: 탐색 및 정보 공유" data-part-info-title="[Part 1] 2Round: 탐색 및 정보 공유">
+        <section class="slide timer-slide" data-index="13" data-title="[파트 1] 2라운드: 탐색 및 정보 공유" data-part-info-title="[파트 1] 2라운드: 탐색 및 정보 공유">
           <div class="timer-widget" data-timer-widget data-initial-seconds="600">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -271,7 +273,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="14" data-title="[Part 1] 2Round: 인물 관찰 및 정보 공유" data-part-info-title="[Part 1] 2Round: 인물 관찰 및 정보 공유">
+        <section class="slide timer-slide" data-index="14" data-title="[파트 1] 2라운드: 인물 관찰 및 정보 공유" data-part-info-title="[파트 1] 2라운드: 인물 관찰 및 정보 공유">
           <div class="timer-widget" data-timer-widget data-initial-seconds="360">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -287,7 +289,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="15" data-title="[Part 1] 2Round: 다음 라운드 리더 지명" data-part-info-title="[Part 1] 2Round: 다음 라운드 리더 지명">
+        <section class="slide timer-slide" data-index="15" data-title="[파트 1] 2라운드: 다음 라운드 리더 지명" data-part-info-title="[파트 1] 2라운드: 다음 라운드 리더 지명">
           <div class="timer-widget" data-timer-widget data-initial-seconds="60">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -303,7 +305,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="16" data-title="[Part 1] 3Round: 행선지 상의 및 결정" data-part-info-title="[Part 1] 3Round: 행선지 상의 및 결정">
+        <section class="slide timer-slide" data-index="16" data-title="[파트 1] 3라운드: 행선지 상의 및 결정" data-part-info-title="[파트 1] 3라운드: 행선지 상의 및 결정">
           <div class="timer-widget" data-timer-widget data-initial-seconds="180">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -319,7 +321,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="17" data-title="[Part 1] 3Round: 탐색 및 정보 공유" data-part-info-title="[Part 1] 3Round: 탐색 및 정보 공유">
+        <section class="slide timer-slide" data-index="17" data-title="[파트 1] 3라운드: 탐색 및 정보 공유" data-part-info-title="[파트 1] 3라운드: 탐색 및 정보 공유">
           <div class="timer-widget" data-timer-widget data-initial-seconds="600">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -335,7 +337,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="18" data-title="[Part 1] 3Round: 인물 관찰 및 정보 공유" data-part-info-title="[Part 1] 3Round: 인물 관찰 및 정보 공유">
+        <section class="slide timer-slide" data-index="18" data-title="[파트 1] 3라운드: 인물 관찰 및 정보 공유" data-part-info-title="[파트 1] 3라운드: 인물 관찰 및 정보 공유">
           <div class="timer-widget" data-timer-widget data-initial-seconds="360">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -351,7 +353,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="19" data-title="[Part 1] 3Round: 다음 라운드 리더 지명" data-part-info-title="[Part 1] 3Round: 다음 라운드 리더 지명">
+        <section class="slide timer-slide" data-index="19" data-title="[파트 1] 3라운드: 다음 라운드 리더 지명" data-part-info-title="[파트 1] 3라운드: 다음 라운드 리더 지명">
           <div class="timer-widget" data-timer-widget data-initial-seconds="60">
             <div class="timer-panel">
               <div class="timer-top-row">
@@ -367,7 +369,7 @@
           </div>
         </section>
 
-        <section class="slide chapter21-slide" data-index="20" data-title="[Part2] 스토리" data-part-anchor="part2-start">
+        <section class="slide chapter21-slide" data-index="20" data-title="[파트 2] 스토리" data-part-anchor="part2-start">
           <div class="chapter21-wrap">
             <div class="chapter21-body scrollable-text">
               <p>마침내 당신들은 「태양의 열쇠」와 「달의 열쇠」를 찾아냈고, 굳게 닫혀 있던 2층으로 향하는 문을 열었다. 탐색 방식에 따라 시간이 꽤 걸렸을지도 모른다.</p>
@@ -383,7 +385,7 @@
           </div>
         </section>
 
-        <section class="slide chapter22-slide" data-index="21" data-title="[Part2] 준비">
+        <section class="slide chapter22-slide" data-index="21" data-title="[파트 2] 준비">
           <div class="chapter22-wrap">
             <div class="chapter22-body scrollable-text">
               <h3 class="chapter22-heading">맵 및 카드 준비</h3>
@@ -407,7 +409,7 @@
           </div>
         </section>
 
-        <section class="slide timer-slide" data-index="22" data-title="[Part2] 개인 설정서 파트 2확인">
+        <section class="slide timer-slide" data-index="22" data-title="[파트 2] 개인 설정서 파트 2확인">
           <h3 class="intro-center-title">개인 설정서 파트 2확인</h3>
           <div class="timer-widget" data-timer-widget data-initial-seconds="300">
             <div class="timer-panel">
@@ -424,9 +426,9 @@
           </div>
         </section>
 
-        <section class="slide part1-order-slide" data-index="23" data-title="[Part2] 진행 순서">
+        <section class="slide part1-order-slide" data-index="23" data-title="[파트 2] 진행 순서">
           <div class="part1-order-wrap">
-            <h2 class="part1-order-title">[Part2] 진행 순서</h2>
+            <h2 class="part1-order-title">[파트 2] 진행 순서</h2>
             <div class="part1-order-flow">
               <button class="part1-order-btn" type="button" data-rule-topic="행선지 상의 및 결정(3분)">행선지 상의 및 결정 (3분)</button>
               <div class="part1-order-arrow">↓</div>
@@ -434,8 +436,204 @@
               <div class="part1-order-arrow">↓</div>
               <button class="part1-order-btn" type="button" data-rule-topic="다음 라운드 리더 지명(1분)">다음 라운드 리더 지명 (1분)</button>
             </div>
-            <p class="round1-leader-note">총 4 Round 진행</p>
+            <p class="round1-leader-note">총 4 라운드 진행</p>
           </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="24" data-title="[파트 2] 라운드 1: 행선지 상의 및 결정" data-part-info-title="[파트 2] 라운드 1: 행선지 상의 및 결정" data-part-info-topic="행선지 상의 및 결정(3분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="180">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">03:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="25" data-title="[파트 2] 라운드 1: 탐색과 정보 공유" data-part-info-title="[파트 2] 라운드 1: 탐색과 정보 공유" data-part-info-topic="탐색과 정보 공유(15분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="900">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">15:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="26" data-title="[파트 2] 라운드 1: 다음 라운드 리더 지명" data-part-info-title="[파트 2] 라운드 1: 다음 라운드 리더 지명" data-part-info-topic="다음 라운드 리더 지명(1분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="60">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">01:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="27" data-title="[파트 2] 라운드 2: 행선지 상의 및 결정" data-part-info-title="[파트 2] 라운드 2: 행선지 상의 및 결정" data-part-info-topic="행선지 상의 및 결정(3분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="180">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">03:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="28" data-title="[파트 2] 라운드 2: 탐색과 정보 공유" data-part-info-title="[파트 2] 라운드 2: 탐색과 정보 공유" data-part-info-topic="탐색과 정보 공유(15분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="900">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">15:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="29" data-title="[파트 2] 라운드 2: 다음 라운드 리더 지명" data-part-info-title="[파트 2] 라운드 2: 다음 라운드 리더 지명" data-part-info-topic="다음 라운드 리더 지명(1분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="60">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">01:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="30" data-title="[파트 2] 라운드 3: 행선지 상의 및 결정" data-part-info-title="[파트 2] 라운드 3: 행선지 상의 및 결정" data-part-info-topic="행선지 상의 및 결정(3분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="180">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">03:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="31" data-title="[파트 2] 라운드 3: 탐색과 정보 공유" data-part-info-title="[파트 2] 라운드 3: 탐색과 정보 공유" data-part-info-topic="탐색과 정보 공유(15분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="900">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">15:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="32" data-title="[파트 2] 라운드 3: 다음 라운드 리더 지명" data-part-info-title="[파트 2] 라운드 3: 다음 라운드 리더 지명" data-part-info-topic="다음 라운드 리더 지명(1분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="60">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">01:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="33" data-title="[파트 2] 라운드 4: 행선지 상의 및 결정" data-part-info-title="[파트 2] 라운드 4: 행선지 상의 및 결정" data-part-info-topic="행선지 상의 및 결정(3분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="180">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">03:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="34" data-title="[파트 2] 라운드 4: 탐색과 정보 공유" data-part-info-title="[파트 2] 라운드 4: 탐색과 정보 공유" data-part-info-topic="탐색과 정보 공유(15분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="900">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">15:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide timer-slide" data-index="35" data-title="[파트 2] 라운드 4: 다음 라운드 리더 지명" data-part-info-title="[파트 2] 라운드 4: 다음 라운드 리더 지명" data-part-info-topic="다음 라운드 리더 지명(1분)">
+          <div class="timer-widget" data-timer-widget data-initial-seconds="60">
+            <div class="timer-panel">
+              <div class="timer-top-row">
+                <button class="timer-adjust-btn" data-role="minus" type="button" aria-label="1분 감소">-1</button>
+                <div class="timer-display" data-role="display">01:00</div>
+                <button class="timer-adjust-btn" data-role="plus" type="button" aria-label="1분 추가">+1</button>
+              </div>
+              <div class="timer-bottom-row">
+                <button class="timer-toggle-btn" data-role="toggle" type="button" aria-pressed="false">시작</button>
+              </div>
+            </div>
+            <div class="timer-end-overlay hidden" data-role="overlay">종료!</div>
+          </div>
+        </section>
+
+        <section class="slide" data-index="36" data-title="파트 3" data-part-anchor="part3-start">
+          <div class="placeholder-box">파트 3 페이지 (내용 추가 예정)</div>
         </section>
       </main>
     </div>
@@ -487,9 +685,6 @@
   <script src="app.js"></script>
 </body>
 </html>
-
-
-
 
 
 

@@ -8,6 +8,7 @@ const slidesContainer = document.getElementById('slidesContainer');
 const headerRulesBookBtn = document.getElementById('headerRulesBookBtn');
 const headerPartInfoBtn = document.getElementById('headerPartInfoBtn');
 const headerPartEndBtn = document.getElementById('headerPartEndBtn');
+const headerPart2EndBtn = document.getElementById('headerPart2EndBtn');
 const rulesModal = document.getElementById('rulesModal');
 const rulesModalTitle = document.getElementById('rulesModalTitle');
 const rulesModalBody = document.getElementById('rulesModalBody');
@@ -24,6 +25,8 @@ let activeRuleTabKey = 'P';
 
 const PART1_START_INDEX = 8;
 const PART1_END_INDEX = 19;
+const PART2_START_INDEX = 24;
+const PART2_END_INDEX = 35;
 const RULE_TAB_TOPIC_MAP = {
   P: '능력과 파워',
   S: '승점',
@@ -186,13 +189,22 @@ function isPart1Slide(index) {
   return index >= PART1_START_INDEX && index <= PART1_END_INDEX;
 }
 
+function isPart2Slide(index) {
+  return index >= PART2_START_INDEX && index <= PART2_END_INDEX;
+}
+
 function getPart2StartIndex() {
   const index = slides.findIndex((slide) => slide.dataset.partAnchor === 'part2-start');
   return index;
 }
 
+function getPart3StartIndex() {
+  const index = slides.findIndex((slide) => slide.dataset.partAnchor === 'part3-start');
+  return index;
+}
+
 function openPart2EnterConfirm() {
-  const message = '<strong class="confirm-primary-line">Part1을 종료</strong>하고<br><span class="confirm-warning-line">Part2 장으로 진입하시겠습니까?</span>';
+  const message = '<strong class="confirm-primary-line">이야기 카드 A</strong>가 공개되었습니까?<br><span class="confirm-warning-line">파트 2</span>로 진입합니다.';
   openConfirmModal(message, () => {
     const part2Index = getPart2StartIndex();
     if (part2Index >= 0) {
@@ -201,13 +213,29 @@ function openPart2EnterConfirm() {
   });
 }
 
+function openPart3EnterConfirm() {
+  const message = '<strong class="confirm-primary-line">이야기 카드 B</strong>가 공개되었습니까?<br><span class="confirm-warning-line">파트 3</span>로 진입합니다.';
+  openConfirmModal(message, () => {
+    const part3Index = getPart3StartIndex();
+    if (part3Index >= 0) {
+      renderSlide(part3Index);
+    }
+  });
+}
+
 function extractPartActionTitle(title) {
-  return (title || '').replace(/^\[Part\s*1\]\s*\d+Round:\s*/i, '').trim();
+  return (title || '').replace(/^\[(?:Part|파트)\s*\d+\]\s*(?:\d+\s*(?:Round|Rount|라운드)|(?:Round|Rount|라운드)\s*\d+):\s*/i, '').trim();
 }
 
 function extractPartRoundText(title) {
-  const match = (title || '').match(/^\[Part\s*1\]\s*(\d+)Round:/i);
-  return match ? `${match[1]} Round` : '';
+  const text = title || '';
+  const matchNumberFirst = text.match(/^\[(?:Part|파트)\s*\d+\]\s*(\d+)\s*(?:Round|Rount|라운드):/i);
+  if (matchNumberFirst) {
+    return `라운드 ${matchNumberFirst[1]}`;
+  }
+
+  const matchWordFirst = text.match(/^\[(?:Part|파트)\s*\d+\]\s*(?:Round|Rount|라운드)\s*(\d+):/i);
+  return matchWordFirst ? `라운드 ${matchWordFirst[1]}` : '';
 }
 
 function updateTimerActionLabel(slideEl, partInfoTitle) {
@@ -403,8 +431,9 @@ function setupRulesModal() {
     const partInfoOpenTarget = event.target.closest('[data-role="part-info-open"]');
     if (partInfoOpenTarget) {
       const activeSlide = slides[currentIndex];
+      const partInfoTopic = activeSlide?.dataset.partInfoTopic;
       const partInfoTitle = activeSlide?.dataset.partInfoTitle;
-      const actionTitle = extractPartActionTitle(partInfoTitle);
+      const actionTitle = partInfoTopic || extractPartActionTitle(partInfoTitle);
       if (actionTitle) {
         openRulesModal(actionTitle);
       }
@@ -414,6 +443,12 @@ function setupRulesModal() {
     const partEndOpenTarget = event.target.closest('[data-role="part-end-open"]');
     if (partEndOpenTarget) {
       openPart2EnterConfirm();
+      return;
+    }
+
+    const part2EndOpenTarget = event.target.closest('[data-role="part2-end-open"]');
+    if (part2EndOpenTarget) {
+      openPart3EnterConfirm();
       return;
     }
 
@@ -813,7 +848,7 @@ function renderSlide(index) {
   updateTimerActionLabel(slides[index], partInfoTitle);
 
   if (headerPartInfoBtn) {
-    const showPartInfo = isPart1Slide(index) && Boolean(partInfoTitle);
+    const showPartInfo = Boolean(slides[index]?.dataset.partInfoTitle || slides[index]?.dataset.partInfoTopic);
     headerPartInfoBtn.classList.toggle('hidden', !showPartInfo);
     headerPartInfoBtn.setAttribute('aria-hidden', showPartInfo ? 'false' : 'true');
   }
@@ -822,6 +857,11 @@ function renderSlide(index) {
   if (headerPartEndBtn) {
     const showPartEndButton = isPart1Slide(index);
     headerPartEndBtn.classList.toggle('hidden', !showPartEndButton);
+  }
+
+  if (headerPart2EndBtn) {
+    const showPart2EndButton = isPart2Slide(index);
+    headerPart2EndBtn.classList.toggle('hidden', !showPart2EndButton);
   }
 
   if (headerRulesBookBtn) {
@@ -856,6 +896,11 @@ function goPrev() {
 function goNext() {
   if (currentIndex === PART1_END_INDEX) {
     openPart2EnterConfirm();
+    return;
+  }
+
+  if (currentIndex === PART2_END_INDEX) {
+    openPart3EnterConfirm();
     return;
   }
 
@@ -941,13 +986,3 @@ closeNpcModal();
 closeConfirmModal();
 document.body.classList.remove('modal-open');
 renderSlide(0);
-
-
-
-
-
-
-
-
-
-
