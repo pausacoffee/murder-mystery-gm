@@ -2061,22 +2061,59 @@ button:disabled {
   }
 
   .top-bar {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
     align-items: center;
+    column-gap: 8px;
+    row-gap: 0;
   }
 
   .header-title {
-    flex: 1 1 100%;
-    order: 1;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    margin: 0;
+  }
+
+  .header-info-btn {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
   }
 
   .header-controls {
-    width: 100%;
-    order: 2;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: auto;
+    margin-left: 0;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-content: center;
+    gap: 4px 6px;
+    min-height: 56px;
+    padding-top: 18px;
+    overflow: visible;
+  }
+
+  .header-controls .page-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: auto;
+    font-size: 0.82rem;
+    line-height: 1;
+  }
+
+  .header-controls .nav-buttons {
+    margin-top: 10px;
+    gap: 4px;
   }
 
   .timer-widget {
