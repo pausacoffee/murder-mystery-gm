@@ -1,8 +1,8 @@
 # 규칙 팝업 매핑
 
 ## 1. 규칙 데이터 위치
-- `분가`: 현재 일부 규칙 본문이 [app.js](/Users/m1pro/Documents/knh/project/08_bunga/murder-mistery-bunga/app.js) 내부 맵을 사용
-- 신규 게임 권장 구조: `games/<id>/rules.json`
+- 현재 권장 구조: `games/<id>/rules.json`
+- `분가`와 `죄와 벌의 도서관` 모두 외부 `rules.json`을 사용합니다.
 
 ## 2. 탭형 규칙 팝업
 책 아이콘으로 여는 탭형 팝업은 아래 순서로 구성됩니다.
@@ -35,8 +35,7 @@
 - 현재 페이즈와 정확히 연결할 규칙이 있으면 `data-part-info-topic`을 우선 지정합니다.
 
 ## 4. 규칙 본문 수정 위치
-- 분가의 기존 규칙 맵: [app.js](/Users/m1pro/Documents/knh/project/08_bunga/murder-mistery-bunga/app.js)
-- 외부화된 규칙 데이터: `games/<id>/rules.json`
+- 외부 규칙 데이터: `games/<id>/rules.json`
 
 ## 5. 작성 원칙
 - 규칙 탭 라벨은 짧게 유지합니다.

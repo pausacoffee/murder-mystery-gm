@@ -43,7 +43,7 @@
     }
   ],
   "rules": {
-    "source": "bunga",
+    "contentPath": "games/bunga/rules.json",
     "tabs": [
       { "key": "P", "label": "능력과 파워" },
       { "key": "S", "label": "승점" },
