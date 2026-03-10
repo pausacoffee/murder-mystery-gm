@@ -916,6 +916,7 @@ class SlideRenderer {
     this.boundTouchStart = (event) => this.handleTouchStart(event);
     this.boundTouchEnd = (event) => this.handleTouchEnd(event);
     this.boundVisibility = () => this.timerManager.pauseOnTabHidden();
+    this.boundResizeTitle = () => this.updateHeaderTitle();
   }
 
   async loadGame(game) {
@@ -1041,14 +1042,31 @@ class SlideRenderer {
 
   bindEvents() {
     window.removeEventListener('keydown', this.boundKeydown);
+    window.removeEventListener('resize', this.boundResizeTitle);
     document.removeEventListener('visibilitychange', this.boundVisibility);
     this.slidesContainer.removeEventListener('touchstart', this.boundTouchStart);
     this.slidesContainer.removeEventListener('touchend', this.boundTouchEnd);
 
     window.addEventListener('keydown', this.boundKeydown);
+    window.addEventListener('resize', this.boundResizeTitle);
     document.addEventListener('visibilitychange', this.boundVisibility);
     this.slidesContainer.addEventListener('touchstart', this.boundTouchStart);
     this.slidesContainer.addEventListener('touchend', this.boundTouchEnd);
+  }
+
+  formatHeaderTitle(title) {
+    const text = title || '';
+    const shouldBreakAfterColon = window.innerWidth <= 900 && /^\[(?:Part|파트)\s*\d+\].*:\s+/.test(text);
+    if (!shouldBreakAfterColon) {
+      return text;
+    }
+    return text.replace(/:\s+/, ':\n');
+  }
+
+  updateHeaderTitle() {
+    const currentSlide = this.slides[this.currentIndex];
+    if (!currentSlide) return;
+    this.headerTitle.textContent = this.formatHeaderTitle(currentSlide.dataset.title || '');
   }
 
   isPart1Slide(index) {
@@ -1110,8 +1128,7 @@ class SlideRenderer {
     this.pageNow.textContent = String(boundedIndex + 1);
 
     const currentSlide = this.slides[boundedIndex];
-    const title = currentSlide.dataset.title || '';
-    this.headerTitle.textContent = title;
+    this.headerTitle.textContent = this.formatHeaderTitle(currentSlide.dataset.title || '');
 
     const partInfoTitle = currentSlide.dataset.partInfoTitle || '';
     const partInfoTopic = currentSlide.dataset.partInfoTopic || '';

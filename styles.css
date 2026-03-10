@@ -4,7 +4,7 @@
 }
 
 .platform-shell {
-  min-height: 100vh;
+  min-height: 100dvh;
   padding: 20px;
   display: grid;
   gap: 12px;
@@ -280,19 +280,30 @@ body {
   font-family: "Noto Sans KR", "Malgun Gothic", sans-serif;
   color: var(--text);
   background: radial-gradient(circle at top, #ffffff 0%, #e9eef6 65%, #dce5f2 100%);
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .app-shell {
-  min-height: 100vh;
+  width: 100%;
+  min-height: 0;
   display: grid;
   place-items: center;
-  padding: 20px;
+  padding: clamp(8px, 2vw, 20px);
+}
+
+#gmView {
+  width: 100%;
+  min-height: calc(100dvh - 24px);
+  display: flex;
+  flex-direction: column;
 }
 
 .slide-frame {
-  width: min(1200px, 96vw, calc((100vh - 40px) * 16 / 9));
-  height: min(calc(96vw * 9 / 16), calc(100vh - 40px));
+  width: min(1200px, calc(100vw - 40px), calc((100dvh - 132px) * 16 / 9));
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  max-height: calc(100dvh - 132px);
   background: var(--frame-bg);
   border-radius: 18px;
   border: 1px solid var(--border);
@@ -1347,8 +1358,8 @@ button:disabled {
   }
 
   .slide-frame {
-    width: min(100vw, calc((100vh - 40px) * 16 / 9));
-    height: min(calc(100vw * 9 / 16), calc(100vh - 40px));
+    width: min(calc(100vw - 12px), calc((100dvh - 92px) * 16 / 9));
+    max-height: calc(100dvh - 92px);
     border-radius: 10px;
   }
 
@@ -1358,13 +1369,14 @@ button:disabled {
   }
 
   .header-title {
-  flex: 0 1 auto;
-  min-width: 0;
-  font-weight: 800;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    flex: 0 1 auto;
+    min-width: 0;
+    font-weight: 800;
+    white-space: pre-line;
+    overflow: visible;
+    text-overflow: clip;
+    line-height: 1.25;
+  }
 
   
 
@@ -2080,6 +2092,8 @@ button:disabled {
 
   .header-title {
     font-size: 0.95rem;
+    white-space: pre-line;
+    line-height: 1.25;
   }
 
   .header-controls {
@@ -2170,63 +2184,73 @@ button:disabled {
   body.is-mobile .slide-frame {
     width: var(--mobile-slide-w, calc(100vw - 12px));
     height: var(--mobile-slide-h, calc((100vw - 12px) * 9 / 16));
+    max-height: none;
     border-radius: 8px;
     margin: 0 auto;
   }
 
   .top-bar {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-rows: auto auto;
+    display: flex;
     align-items: center;
-    column-gap: 8px;
-    row-gap: 0;
+    gap: 8px;
   }
 
   .header-title {
-    grid-column: 1;
-    grid-row: 1 / span 2;
+    flex: 0 1 auto;
+    min-width: 0;
+    display: block;
     align-self: center;
-    display: flex;
-    align-items: center;
-    min-height: 56px;
     margin: 0;
+    white-space: pre-line;
+    line-height: 1.2;
+    max-width: 46%;
   }
 
   .header-info-btn {
-    grid-column: 1;
-    grid-row: 1;
-    justify-self: end;
-    align-self: start;
+    flex: 0 0 auto;
+    align-self: center;
+    margin-left: 4px;
+    margin-right: 0;
   }
 
   .header-controls {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    width: auto;
-    margin-left: 0;
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-content: center;
-    gap: 4px 6px;
-    min-height: 56px;
-    padding-top: 18px;
+    flex: 0 0 auto;
+    margin-left: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-areas:
+      "end rules page"
+      "end nav nav";
+    align-items: center;
+    justify-content: end;
+    column-gap: 8px;
+    row-gap: 4px;
+    min-height: auto;
+    padding-top: 0;
     overflow: visible;
   }
 
   .header-controls .page-indicator {
-    position: absolute;
-    top: 0;
-    right: 0;
+    grid-area: page;
     min-width: auto;
     font-size: 0.82rem;
     line-height: 1;
   }
 
+  .header-controls .rules-book-btn {
+    grid-area: rules;
+    margin: 0;
+  }
+
+  .header-controls .header-part-end-btn {
+    grid-area: end;
+    align-self: end;
+  }
+
   .header-controls .nav-buttons {
-    margin-top: 10px;
+    grid-area: nav;
+    justify-content: flex-end;
+    margin-top: 0;
     gap: 4px;
   }
 
