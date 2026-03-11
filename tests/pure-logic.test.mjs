@@ -8,6 +8,7 @@ const {
   buildDetailPath,
   buildGmPath,
   buildThemeHref,
+  formatPlayTimeRange,
   getSlideNextConfirmation,
   getNextContactStep,
   getPrevContactStep,
@@ -53,6 +54,12 @@ const slidesMeta = [
 describe('pure logic', () => {
   it('플레이어 인원 최소/최대 값을 범위 문자열로 변환한다', () => {
     expect(formatPlayerRange(5, 6)).toBe('5~6');
+  });
+
+  it('소요시간 최소/최대 값을 목록용 문자열로 변환한다', () => {
+    expect(formatPlayTimeRange(120, 180)).toBe('120~180분');
+    expect(formatPlayTimeRange(120, '')).toBe('120분+');
+    expect(formatPlayTimeRange('', '')).toBe('');
   });
 
   it('게임 검색어를 이름과 인원 메타데이터 기준으로 판별한다', () => {

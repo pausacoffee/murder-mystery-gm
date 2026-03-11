@@ -25,6 +25,7 @@ npm run dev:vercel
 - 게임 패키지: `games/<id>/game.json`
 - 슬라이드 본문: `games/<id>/slides.html`
 - 외부 규칙 데이터: `games/<id>/rules.json`
+- 공용 아이콘/에셋: `assets/icons/`
 - 샘플 게임:
   - `분가`
   - `죄와 벌의 도서관`

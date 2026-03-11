@@ -18,7 +18,12 @@
     font-size: 0.94rem;
   }
 
-  .game-card-players {
+  .game-card-meta {
+    gap: 8px;
+  }
+
+  .game-card-players,
+  .game-card-time {
     font-size: 0.88rem;
   }
 

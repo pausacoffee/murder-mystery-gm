@@ -65,7 +65,7 @@
         <div class="detail-content">
           <h2 id="detailTitle"></h2>
           <p id="detailPrequel" class="detail-prequel"></p>
-          <p id="detailPlayers" class="detail-players"></p>
+          <div id="detailMeta" class="detail-meta" aria-label="게임 메타 정보"></div>
           <button id="enterGameBtn" type="button">입장</button>
         </div>
       </div>
@@ -86,15 +86,11 @@
         <div class="gm-stage">
           <nav class="gm-side-nav" aria-label="GM 바로가기">
             <button class="gm-side-nav-btn" type="button" data-role="gm-home-open" aria-label="홈">
-              <svg class="gm-side-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12 3.2 4 9.6V20h5.6v-5.1h4.8V20H20V9.6L12 3.2Z" />
-              </svg>
+              <img class="gm-side-nav-icon" src="/assets/icons/home.svg" alt="" aria-hidden="true" />
               <span class="gm-side-nav-tooltip">홈</span>
             </button>
             <button class="gm-side-nav-btn" type="button" data-role="gm-detail-open" aria-label="게임 개요">
-              <svg class="gm-side-nav-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M6 4.5A2.5 2.5 0 0 0 3.5 7v10A2.5 2.5 0 0 0 6 19.5h12a2.5 2.5 0 0 0 2.5-2.5V7A2.5 2.5 0 0 0 18 4.5H6Zm1.8 4h8.4v1.6H7.8V8.5Zm0 3.2h8.4v1.6H7.8v-1.6Zm0 3.2h5.4v1.6H7.8v-1.6Z" />
-              </svg>
+              <img class="gm-side-nav-icon" src="/assets/icons/article.svg" alt="" aria-hidden="true" />
               <span class="gm-side-nav-tooltip">게임 개요</span>
             </button>
           </nav>
@@ -127,15 +123,11 @@
                 </div>
                 <div class="nav-buttons">
                   <button id="prevBtn" type="button" aria-label="이전">
-                    <svg class="nav-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <path d="M14.71 6.71a1 1 0 0 1 0 1.41L10.83 12l3.88 3.88a1 1 0 1 1-1.42 1.41l-4.58-4.58a1 1 0 0 1 0-1.41l4.58-4.58a1 1 0 0 1 1.42 0Z" />
-                    </svg>
+                    <img class="nav-arrow-icon" src="/assets/icons/arrow-back-ios.svg" alt="" aria-hidden="true" />
                     <span class="sr-only">이전</span>
                   </button>
                   <button id="nextBtn" type="button" aria-label="다음">
-                    <svg class="nav-arrow-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                      <path d="M9.29 17.29a1 1 0 0 1 0-1.41L13.17 12 9.29 8.12a1 1 0 0 1 1.42-1.41l4.58 4.58a1 1 0 0 1 0 1.41l-4.58 4.58a1 1 0 0 1-1.42 0Z" />
-                    </svg>
+                    <img class="nav-arrow-icon" src="/assets/icons/arrow-forward-ios.svg" alt="" aria-hidden="true" />
                     <span class="sr-only">다음</span>
                   </button>
                 </div>

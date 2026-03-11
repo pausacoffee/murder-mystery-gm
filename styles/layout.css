@@ -112,8 +112,41 @@
   line-height: 1.7;
 }
 
-.detail-players {
-  font-weight: 800;
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+  margin: 14px 0 18px;
+}
+
+.detail-meta-item,
+.detail-meta-link {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #2d3748;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.detail-meta-link:hover {
+  color: #163f7d;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.detail-meta-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.detail-meta-text {
+  line-height: 1.2;
 }
 
 .catalog-term-text {
@@ -267,7 +300,8 @@
 .gm-side-nav-icon {
   width: 22px;
   height: 22px;
-  fill: currentColor;
+  display: block;
+  object-fit: contain;
 }
 
 .gm-side-nav-tooltip {

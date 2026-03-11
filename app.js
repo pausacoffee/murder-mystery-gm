@@ -6,6 +6,7 @@ const {
   buildDetailPath,
   buildGmPath,
   buildThemeHref,
+  formatPlayTimeRange,
   getSlideNextConfirmation,
   getNextContactStep,
   formatHeaderTitleForViewport,
@@ -1027,7 +1028,7 @@ class MultiGameApp {
 
     this.detailTitle = document.getElementById('detailTitle');
     this.detailPrequel = document.getElementById('detailPrequel');
-    this.detailPlayers = document.getElementById('detailPlayers');
+    this.detailMeta = document.getElementById('detailMeta');
     this.detailBoxImage = document.getElementById('detailBoxImage');
     this.detailImageFallback = document.getElementById('detailImageFallback');
     this.detailCopyright = document.getElementById('detailCopyright');
@@ -1656,7 +1657,31 @@ class MultiGameApp {
 
     this.detailTitle.textContent = game.name;
     this.detailPrequel.textContent = game.synopsis || game.prequel || '';
-    this.detailPlayers.textContent = `추천 인원: ${game.recommendedPlayers || `${game.playerMin}~${game.playerMax}인`}`;
+    const groupIconSrc = normalizeAppPath('assets/icons/group.svg', window.location.protocol);
+    const timelapseIconSrc = normalizeAppPath('assets/icons/timelapse.svg', window.location.protocol);
+    const shoppingCartIconSrc = normalizeAppPath('assets/icons/shopping-cart.svg', window.location.protocol);
+    const playerRange = `${game.playerMin}~${game.playerMax}인`;
+    const playTimeRange = formatPlayTimeRange(game.durationMin, game.durationMax);
+    const purchaseLinkMarkup = game.purchaseLink
+      ? `
+        <a class="detail-meta-link" href="${game.purchaseLink}" target="_blank" rel="noreferrer noopener">
+          <img class="detail-meta-icon" src="${shoppingCartIconSrc}" alt="" aria-hidden="true" />
+          <span class="detail-meta-text">구매 링크</span>
+        </a>
+      `
+      : '';
+    this.detailMeta.innerHTML = `
+      <p class="detail-meta-item">
+        <img class="detail-meta-icon" src="${groupIconSrc}" alt="" aria-hidden="true" />
+        <span class="detail-meta-text">${playerRange}</span>
+      </p>
+      ${playTimeRange ? `
+      <p class="detail-meta-item">
+        <img class="detail-meta-icon" src="${timelapseIconSrc}" alt="" aria-hidden="true" />
+        <span class="detail-meta-text">${playTimeRange}</span>
+      </p>` : ''}
+      ${purchaseLinkMarkup}
+    `;
     this.detailCopyright.textContent = game.copyrightNotice || '';
 
     if (game.boxImage) {

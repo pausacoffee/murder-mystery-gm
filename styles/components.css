@@ -77,7 +77,16 @@
   min-width: 12px;
 }
 
-.game-card-players {
+.game-card-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.game-card-players,
+.game-card-time {
   margin: 0;
   display: inline-flex;
   align-items: center;
@@ -87,22 +96,15 @@
   white-space: nowrap;
 }
 
-.game-card-players-icon {
+.game-card-meta-icon {
   width: 20px;
   height: 20px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: #5b6472;
+  display: block;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
-.game-card-players-icon svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
-
-.game-card-players-range {
+.game-card-meta-text {
   letter-spacing: 0.01em;
 }
 
@@ -171,7 +173,7 @@
   width: 18px;
   height: 18px;
   display: block;
-  fill: currentColor;
+  object-fit: contain;
 }
 
 .diagram {
