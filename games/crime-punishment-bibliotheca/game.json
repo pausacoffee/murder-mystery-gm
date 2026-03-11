@@ -15,8 +15,15 @@
     "tabs": [
       { "key": "O", "label": "개요", "topic": "게임 개요" },
       { "key": "P", "label": "준비", "topic": "준비와 구성물" },
-      { "key": "F", "label": "진행", "topic": "페이즈 진행" },
-      { "key": "C", "label": "주의", "topic": "카드와 공개 규칙" }
+      { "key": "C", "label": "주의", "topic": "플레이 전 주의" },
+      { "key": "S", "label": "비공개", "topic": "설정서와 비공개 정보" },
+      { "key": "I", "label": "조사", "topic": "조사 페이즈" },
+      { "key": "H", "label": "공유", "topic": "공유 페이즈" },
+      { "key": "D", "label": "추리", "topic": "추리 페이즈" },
+      { "key": "W", "label": "점수", "topic": "승리점수 정리 페이즈" },
+      { "key": "V", "label": "투표", "topic": "투표 페이즈" },
+      { "key": "A", "label": "액션", "topic": "액션 페이즈" },
+      { "key": "E", "label": "엔딩", "topic": "엔딩 페이즈" }
     ],
     "contentPath": "games/crime-punishment-bibliotheca/rules.json"
   }

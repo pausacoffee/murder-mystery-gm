@@ -952,7 +952,8 @@ class SlideRenderer {
     this.headerPartInfoBtn.setAttribute('aria-hidden', showPartInfo ? 'false' : 'true');
 
     this.updateHeaderActions(boundedIndex);
-    this.headerRulesBookBtn.style.display = boundedIndex >= 6 ? 'inline-flex' : 'none';
+    const hasWholeGameRules = Array.isArray(this.rulesModal.tabConfig) && this.rulesModal.tabConfig.length > 0;
+    this.headerRulesBookBtn.style.display = hasWholeGameRules ? 'inline-flex' : 'none';
 
     this.updateTimerActionLabel(currentSlide, partInfoTitle);
     this.timerManager.pauseIfSlideChanged(currentSlide);
