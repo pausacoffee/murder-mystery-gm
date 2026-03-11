@@ -239,11 +239,45 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #9aa7be #eef3f9;
   -webkit-overflow-scrolling: touch;
   touch-action: pan-y;
   line-height: 1.7;
   background: #fcfdff;
+}
+
+.scrollable-text::-webkit-scrollbar,
+.rules-inline-panel::-webkit-scrollbar,
+.rules-modal-body::-webkit-scrollbar,
+.slide::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollable-text::-webkit-scrollbar-track,
+.rules-inline-panel::-webkit-scrollbar-track,
+.rules-modal-body::-webkit-scrollbar-track,
+.slide::-webkit-scrollbar-track {
+  background: #eef3f9;
+  border-radius: 999px;
+}
+
+.scrollable-text::-webkit-scrollbar-thumb,
+.rules-inline-panel::-webkit-scrollbar-thumb,
+.rules-modal-body::-webkit-scrollbar-thumb,
+.slide::-webkit-scrollbar-thumb {
+  background: #9aa7be;
+  border-radius: 999px;
+  border: 2px solid #eef3f9;
+}
+
+.scrollable-text::-webkit-scrollbar-thumb:hover,
+.rules-inline-panel::-webkit-scrollbar-thumb:hover,
+.rules-modal-body::-webkit-scrollbar-thumb:hover,
+.slide::-webkit-scrollbar-thumb:hover {
+  background: #7d8ba3;
 }
 
 .story-slide.active {
@@ -935,6 +969,10 @@
   border-radius: 0 12px 12px 12px;
   padding: 16px;
   background: #fcfdff;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #9aa7be #eef3f9;
 }
 
 .rules-modal.hidden {
@@ -998,7 +1036,10 @@
 .rules-modal-body {
   flex: 1;
   min-height: 0;
-  overflow-y: auto;
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #9aa7be #eef3f9;
   padding: 18px;
   line-height: 1.7;
   background: #fcfdff;
