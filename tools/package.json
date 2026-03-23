@@ -1,0 +1,9 @@
+{
+  "name": "gm-tools",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "dotenv": "^16.4.5"
+  }
+}

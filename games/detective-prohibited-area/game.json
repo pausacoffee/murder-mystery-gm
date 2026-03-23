@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0",
+  "id": "detective-prohibited-area",
+  "name": "탐정 금지 영역",
+  "routeName": "detective-prohibited-area",
+  "slidesHtmlPath": "games/detective-prohibited-area/slides.html",
+  "bgmEnabled": false,
+  "bgm": {
+    "defaultTrack": "",
+    "slideTracks": {}
+  },
+  "headerActions": [],
+  "rules": {
+    "contentPath": "games/detective-prohibited-area/rules.json",
+    "tabs": [
+      { "key": "조사 규칙", "label": "조사" },
+      { "key": "대화 / 밀담", "label": "대화·밀담" },
+      { "key": "손패 규칙", "label": "손패" },
+      { "key": "전체 규칙", "label": "전체" }
+    ]
+  }
+}
