@@ -34,6 +34,22 @@
       "copyrightNotice": "© 2021 GroupSNE & cosaic All rights reserved.",
       "searchText": "죄와 벌의 도서관 Crime and Punishment in Bibliotheca 도서관 살인 사건 5인 6인 추리",
       "gamePath": "games/crime-punishment-bibliotheca/game.json"
+    },
+    {
+      "id": "detective-prohibited-area",
+      "routeName": "detective-prohibited-area",
+      "name": "탐정 금지 영역",
+      "nameEn": "Detective Prohibited Area",
+      "playerMin": 6,
+      "playerMax": 6,
+      "recommendedPlayers": "6인",
+      "durationMin": 150,
+      "durationMax": 210,
+      "boxImage": "",
+      "synopsis": "다이쇼 시대 제도. 명탐정 가와즈야가 초대한 여섯 명. 그 밤, 가와즈야가 살해당한다. 각자의 목적을 가진 여섯 명이 정보를 교환하며 진상을 추리한다.",
+      "copyrightNotice": "© TODO: 제작사 확인 필요",
+      "searchText": "탐정 금지 영역 Detective Prohibited Area 다이쇼 6인 추리 살인",
+      "gamePath": "games/detective-prohibited-area/game.json"
     }
   ]
 }
