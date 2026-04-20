@@ -73,49 +73,67 @@ class ViewportGuard {
 }
 
 class BGMController {
-  constructor(panelEl, muteBtn, volumeRange) {
+  constructor(panelEl, toggleBtn, volumeRange, moreBtn, trackNameEl) {
     this.panelEl = panelEl;
-    this.muteBtn = muteBtn;
+    this.toggleBtn = toggleBtn;
     this.volumeRange = volumeRange;
+    this.moreBtn = moreBtn;
+    this.trackNameEl = trackNameEl;
     this.audio = new Audio();
     this.audio.loop = true;
-    this.audio.volume = Number.parseFloat(volumeRange.value || '0.5');
+    this.audio.volume = Number.parseFloat(volumeRange?.value || '0.5');
     this.currentTrack = '';
+    this.currentRawTrack = '';
+    this.currentSlideIndex = 0;
     this.gameConfig = null;
 
-    this.muteBtn.addEventListener('click', () => {
-      this.audio.muted = !this.audio.muted;
-      this.muteBtn.textContent = this.audio.muted ? '음소거 해제' : '음소거';
-    });
+    this.toggleBtn?.addEventListener('click', () => this.togglePlayback());
 
-    this.volumeRange.addEventListener('input', () => {
+    this.volumeRange?.addEventListener('input', () => {
       this.audio.volume = Number.parseFloat(this.volumeRange.value || '0.5');
     });
+
+    this.audio.addEventListener('play', () => this.updatePlaybackButton());
+    this.audio.addEventListener('pause', () => this.updatePlaybackButton());
   }
 
   applyGame(game) {
+    if (this.gameConfig !== game) {
+      this.stop();
+    }
     this.gameConfig = game;
     const enabled = Boolean(game?.bgmEnabled);
-    this.panelEl.classList.toggle('hidden', !enabled);
+    this.moreBtn?.classList.toggle('hidden', !enabled);
+    this.moreBtn?.setAttribute('aria-hidden', enabled ? 'false' : 'true');
+    this.closePanel();
     if (!enabled) {
       this.stop();
     }
+    this.updateTrackName();
+    this.updatePlaybackButton();
   }
 
   updateBySlide(index) {
+    this.currentSlideIndex = index;
     if (!this.gameConfig || !this.gameConfig.bgmEnabled) {
+      this.updateTrackName();
       return;
     }
 
     const slideTrack = this.gameConfig.bgm?.slideTracks?.[String(index)] || '';
     const nextTrack = slideTrack || this.gameConfig.bgm?.defaultTrack || '';
-    if (!nextTrack || nextTrack === this.currentTrack) {
+    if (!nextTrack || nextTrack === this.currentRawTrack) {
+      this.currentRawTrack = nextTrack;
+      this.updateTrackName();
       return;
     }
 
+    this.currentRawTrack = nextTrack;
     this.currentTrack = normalizeAppPath(nextTrack, window.location.protocol);
     this.audio.src = this.currentTrack;
     this.audio.play().catch(() => {});
+    this.updateTrackName();
+    this.updatePlaybackButton();
   }
 
   startOnUserGesture() {
@@ -127,10 +145,65 @@ class BGMController {
     }
   }
 
+  togglePanel() {
+    if (!this.gameConfig?.bgmEnabled) return;
+    const willOpen = this.panelEl?.classList.contains('hidden');
+    this.panelEl?.classList.toggle('hidden', !willOpen);
+    this.panelEl?.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+    this.moreBtn?.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  }
+
+  closePanel() {
+    this.panelEl?.classList.add('hidden');
+    this.panelEl?.setAttribute('aria-hidden', 'true');
+    this.moreBtn?.setAttribute('aria-expanded', 'false');
+  }
+
+  togglePlayback() {
+    if (!this.currentTrack) return;
+    if (this.audio.paused) {
+      this.audio.play().catch(() => {});
+      return;
+    }
+    this.audio.pause();
+  }
+
+  updatePlaybackButton() {
+    if (!this.toggleBtn) return;
+    this.toggleBtn.textContent = this.audio.paused ? '재생' : '일시정지';
+    this.toggleBtn.disabled = !this.currentTrack;
+  }
+
+  updateTrackName() {
+    if (!this.trackNameEl) return;
+    this.trackNameEl.textContent = this.getCurrentTrackLabel();
+  }
+
+  getCurrentTrackLabel() {
+    if (!this.gameConfig?.bgmEnabled) return 'BGM 없음';
+
+    const bgm = this.gameConfig.bgm || {};
+    const slideKey = String(this.currentSlideIndex);
+    const rawTrack = this.currentRawTrack || bgm.slideTracks?.[slideKey] || bgm.defaultTrack || '';
+    const explicitLabel = bgm.slideTrackLabels?.[slideKey]
+      || bgm.trackLabels?.[rawTrack]
+      || bgm.defaultTrackLabel
+      || bgm.label
+      || '';
+    if (explicitLabel) return explicitLabel;
+    if (!rawTrack) return 'BGM 없음';
+
+    const filename = rawTrack.split('/').pop() || rawTrack;
+    return decodeURIComponent(filename).replace(/\.[a-z0-9]+$/i, '') || 'BGM';
+  }
+
   stop() {
     this.audio.pause();
     this.audio.src = '';
     this.currentTrack = '';
+    this.currentRawTrack = '';
+    this.updateTrackName();
+    this.updatePlaybackButton();
   }
 }
 
@@ -653,7 +726,6 @@ class RulesModal {
 class SlideRenderer {
   constructor(options) {
     this.slidesContainer = options.slidesContainer;
-    this.headerTitle = options.headerTitle;
     this.pageNow = options.pageNow;
     this.pageTotal = options.pageTotal;
     this.headerPartInfoBtn = options.headerPartInfoBtn;
@@ -681,7 +753,7 @@ class SlideRenderer {
     this.boundTouchStart = (event) => this.handleTouchStart(event);
     this.boundTouchEnd = (event) => this.handleTouchEnd(event);
     this.boundVisibility = () => this.timerManager.pauseOnTabHidden();
-    this.boundResizeTitle = () => this.updateHeaderTitle();
+    this.boundResizeTitle = () => this.updateCurrentSlideTitle();
   }
 
   async loadGame(game) {
@@ -705,6 +777,7 @@ class SlideRenderer {
     this.pageTotal.textContent = String(this.slides.length);
     this.refreshPartRanges();
     this.setupHeaderActions();
+    this.dedupeSlideHeadings();
     this.setupInlineRules();
     this.setupTimers();
     this.decorateStoryText();
@@ -789,6 +862,53 @@ class SlideRenderer {
         if (target >= 0) this.renderSlide(target);
       });
     }
+  }
+
+  normalizeSlideHeadingText(text) {
+    return String(text || '')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/^\s*\[(?:Part|파트)\s*\d+\]\s*/i, '')
+      .replace(/^\s*(?:\d+\s*)?(?:Round|Rount|라운드)\s*\d*\s*[:：]?\s*/i, '')
+      .replace(/[()[\]{}<>:：·\-\s]/g, '')
+      .toLowerCase();
+  }
+
+  getSlideTitleComparisonKeys(title) {
+    const rawTitle = String(title || '').trim();
+    const withoutPart = rawTitle.replace(/^\s*\[(?:Part|파트)\s*\d+\]\s*/i, '').trim();
+    const withoutRound = withoutPart.replace(/^\s*(?:\d+\s*)?(?:Round|Rount|라운드)\s*\d*\s*[:：]?\s*/i, '').trim();
+    return [rawTitle, withoutPart, withoutRound]
+      .map((item) => this.normalizeSlideHeadingText(item))
+      .filter(Boolean);
+  }
+
+  getFirstHeadingCandidate(slideEl) {
+    return [
+      ':scope > h1',
+      ':scope > h2',
+      ':scope > h3',
+      ':scope > .intro-center-title',
+      ':scope > .content-list > h1:first-child',
+      ':scope > .content-list > h2:first-child',
+      ':scope > .content-list > h3:first-child',
+      ':scope > .part1-order-wrap > .part1-order-title:first-child',
+    ].map((selector) => slideEl.querySelector(selector)).find(Boolean) || null;
+  }
+
+  dedupeSlideHeadings() {
+    this.slides.forEach((slide) => {
+      const titleKeys = this.getSlideTitleComparisonKeys(slide.dataset.title || '');
+      if (titleKeys.length === 0) return;
+
+      const heading = this.getFirstHeadingCandidate(slide);
+      if (!heading) return;
+
+      const headingKey = this.normalizeSlideHeadingText(heading.textContent || '');
+      if (!headingKey || !titleKeys.includes(headingKey)) return;
+
+      heading.classList.add('deduped-slide-heading');
+      heading.setAttribute('aria-hidden', 'true');
+    });
   }
 
   setupTimers() {
@@ -878,10 +998,27 @@ class SlideRenderer {
     return formatHeaderTitleForViewport(title, window.innerWidth);
   }
 
-  updateHeaderTitle() {
+  updateCurrentSlideTitle() {
     const currentSlide = this.slides[this.currentIndex];
     if (!currentSlide) return;
-    this.headerTitle.textContent = this.formatHeaderTitle(currentSlide.dataset.title || '');
+    this.setSlideContentTitle(currentSlide);
+  }
+
+  setSlideContentTitle(slideEl) {
+    if (!slideEl) return;
+    const title = this.formatHeaderTitle(slideEl.dataset.title || '');
+    let titleEl = slideEl.querySelector(':scope > .slide-content-title');
+    if (!title) {
+      titleEl?.remove();
+      return;
+    }
+
+    if (!titleEl) {
+      titleEl = document.createElement('h1');
+      titleEl.className = 'slide-content-title';
+      slideEl.insertBefore(titleEl, slideEl.firstChild);
+    }
+    titleEl.textContent = title;
   }
 
   isPart1Slide(index) {
@@ -896,46 +1033,6 @@ class SlideRenderer {
     return (title || '').replace(/^\[(?:Part|파트)\s*\d+\]\s*(?:\d+\s*(?:Round|Rount|라운드)|(?:Round|Rount|라운드)\s*\d+):\s*/i, '').trim();
   }
 
-  extractPartRoundText(title) {
-    const text = title || '';
-    const matchNumberFirst = text.match(/^\[(?:Part|파트)\s*\d+\]\s*(\d+)\s*(?:Round|Rount|라운드):/i);
-    if (matchNumberFirst) return `라운드 ${matchNumberFirst[1]}`;
-    const matchWordFirst = text.match(/^\[(?:Part|파트)\s*\d+\]\s*(?:Round|Rount|라운드)\s*(\d+):/i);
-    return matchWordFirst ? `라운드 ${matchWordFirst[1]}` : '';
-  }
-
-  updateTimerActionLabel(slideEl, partInfoTitle) {
-    if (!slideEl) return;
-    const timerWidget = slideEl.querySelector('.timer-widget');
-    if (!timerWidget) return;
-
-    let roundEl = slideEl.querySelector('.timer-round-label');
-    let actionEl = slideEl.querySelector('.timer-action-label');
-    const roundText = this.extractPartRoundText(partInfoTitle);
-    const actionTitle = this.extractPartActionTitle(partInfoTitle);
-
-    if (!actionTitle) {
-      roundEl?.remove();
-      actionEl?.remove();
-      return;
-    }
-
-    if (!roundEl) {
-      roundEl = document.createElement('h3');
-      roundEl.className = 'timer-round-label';
-      slideEl.insertBefore(roundEl, timerWidget);
-    }
-
-    if (!actionEl) {
-      actionEl = document.createElement('h1');
-      actionEl.className = 'timer-action-label';
-      slideEl.insertBefore(actionEl, timerWidget);
-    }
-
-    roundEl.textContent = roundText;
-    actionEl.textContent = actionTitle;
-  }
-
   renderSlide(index) {
     const boundedIndex = Math.max(0, Math.min(index, this.slides.length - 1));
     this.slides.forEach((slide, i) => slide.classList.toggle('active', i === boundedIndex));
@@ -943,7 +1040,7 @@ class SlideRenderer {
     this.pageNow.textContent = String(boundedIndex + 1);
 
     const currentSlide = this.slides[boundedIndex];
-    this.headerTitle.textContent = this.formatHeaderTitle(currentSlide.dataset.title || '');
+    this.setSlideContentTitle(currentSlide);
 
     const partInfoTitle = currentSlide.dataset.partInfoTitle || '';
     const partInfoTopic = currentSlide.dataset.partInfoTopic || '';
@@ -955,7 +1052,6 @@ class SlideRenderer {
     const hasWholeGameRules = Array.isArray(this.rulesModal.tabConfig) && this.rulesModal.tabConfig.length > 0;
     this.headerRulesBookBtn.style.display = hasWholeGameRules ? 'inline-flex' : 'none';
 
-    this.updateTimerActionLabel(currentSlide, partInfoTitle);
     this.timerManager.pauseIfSlideChanged(currentSlide);
     this.bgmController.updateBySlide(boundedIndex);
   }
@@ -1043,9 +1139,6 @@ class MultiGameApp {
     this.contactStepLead = document.getElementById('contactStepLead');
     this.contactModalBody = document.getElementById('contactModalBody');
     this.contactModalActions = document.getElementById('contactModalActions');
-    this.gmMobileMenu = document.getElementById('gmMobileMenu');
-    this.gmMobileMenuBtn = document.getElementById('gmMobileMenuBtn');
-
     this.rulesModal = new RulesModal(
       document.getElementById('rulesModal'),
       document.getElementById('rulesModalTitle'),
@@ -1055,13 +1148,14 @@ class MultiGameApp {
 
     this.bgmController = new BGMController(
       document.getElementById('bgmPanel'),
-      document.getElementById('bgmMuteBtn'),
+      document.getElementById('bgmToggleBtn'),
       document.getElementById('bgmVolumeRange'),
+      document.getElementById('gmMoreBtn'),
+      document.getElementById('bgmTrackName'),
     );
 
     this.slideRenderer = new SlideRenderer({
       slidesContainer: document.getElementById('slidesContainer'),
-      headerTitle: document.getElementById('headerTitle'),
       pageNow: document.getElementById('pageNow'),
       pageTotal: document.getElementById('pageTotal'),
       headerPartInfoBtn: document.getElementById('headerPartInfoBtn'),
@@ -1072,7 +1166,7 @@ class MultiGameApp {
       openConfirmModal: (message, onConfirm) => this.openConfirmModal(message, onConfirm),
     });
 
-    this.viewportGuard = new ViewportGuard(document.getElementById('orientationGuard'));
+    document.getElementById('orientationGuard')?.classList.add('hidden');
     this.adSlotManager = new AdSlotManager();
     this.boundDeviceContextUpdate = () => {
       this.applyDeviceContextClass();
@@ -1090,7 +1184,6 @@ class MultiGameApp {
       window.visualViewport.addEventListener('resize', this.boundVisualViewportUpdate);
       window.visualViewport.addEventListener('scroll', this.boundVisualViewportUpdate);
     }
-    this.viewportGuard.init();
     this.adSlotManager.render();
     this.bindGlobalEvents();
     await this.loadGames();
@@ -1219,20 +1312,13 @@ class MultiGameApp {
         this.openContactModal();
         return;
       }
-      if (event.target.closest('[data-role="gm-mobile-menu-toggle"]')) {
-        this.toggleGmMobileMenu();
+      if (event.target.closest('[data-role="gm-more-toggle"]')) {
+        this.bgmController.togglePanel();
         return;
       }
       if (event.target.closest('[data-role="gm-home-open"]')) {
-        this.closeGmMobileMenu();
+        this.bgmController.closePanel();
         this.navigateToCatalog();
-        return;
-      }
-      if (event.target.closest('[data-role="gm-detail-open"]')) {
-        this.closeGmMobileMenu();
-        if (this.state.selectedGameId) {
-          this.navigateToGameDetail(this.state.selectedGameId);
-        }
         return;
       }
       if (event.target.closest('[data-role="contact-close"]')) {
@@ -1305,8 +1391,8 @@ class MultiGameApp {
         return;
       }
 
-      if (!event.target.closest('#gmMobileMenu') && !event.target.closest('[data-role="gm-mobile-menu-toggle"]')) {
-        this.closeGmMobileMenu();
+      if (!event.target.closest('#bgmPanel') && !event.target.closest('[data-role="gm-more-toggle"]')) {
+        this.bgmController.closePanel();
       }
     });
 
@@ -1581,19 +1667,6 @@ class MultiGameApp {
     window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
-  toggleGmMobileMenu() {
-    const willOpen = this.gmMobileMenu?.classList.contains('hidden');
-    this.gmMobileMenu?.classList.toggle('hidden', !willOpen);
-    this.gmMobileMenu?.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
-    this.gmMobileMenuBtn?.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-  }
-
-  closeGmMobileMenu() {
-    this.gmMobileMenu?.classList.add('hidden');
-    this.gmMobileMenu?.setAttribute('aria-hidden', 'true');
-    this.gmMobileMenuBtn?.setAttribute('aria-expanded', 'false');
-  }
-
   setView(view) {
     const platformTitle = document.getElementById('platformTitle');
     const platformSubtitle = document.getElementById('platformSubtitle');
@@ -1619,7 +1692,7 @@ class MultiGameApp {
     }
 
     if (view !== 'gm') {
-      this.closeGmMobileMenu();
+      this.bgmController.closePanel();
     }
   }
 

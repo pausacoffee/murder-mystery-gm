@@ -84,57 +84,55 @@
     <section class="hidden" id="gmView">
       <div class="app-shell">
         <div class="gm-stage">
-          <nav class="gm-side-nav" aria-label="GM 바로가기">
-            <button class="gm-side-nav-btn" type="button" data-role="gm-home-open" aria-label="홈">
-              <img class="gm-side-nav-icon" src="/assets/icons/home.svg" alt="" aria-hidden="true" />
-              <span class="gm-side-nav-tooltip">홈</span>
-            </button>
-            <button class="gm-side-nav-btn" type="button" data-role="gm-detail-open" aria-label="게임 개요">
-              <img class="gm-side-nav-icon" src="/assets/icons/article.svg" alt="" aria-hidden="true" />
-              <span class="gm-side-nav-tooltip">게임 개요</span>
-            </button>
-          </nav>
           <div class="slide-frame">
-            <header class="top-bar">
-              <button class="gm-mobile-menu-btn" id="gmMobileMenuBtn" type="button" data-role="gm-mobile-menu-toggle" aria-expanded="false" aria-controls="gmMobileMenu" aria-label="GM 메뉴 열기">≡</button>
-              <div class="gm-mobile-menu hidden" id="gmMobileMenu" aria-hidden="true">
-                <button class="gm-mobile-menu-item" type="button" data-role="gm-home-open">홈</button>
-                <button class="gm-mobile-menu-item" type="button" data-role="gm-detail-open">게임 개요</button>
-              </div>
-              <div class="header-title" id="headerTitle">게임 흐름 요약</div>
-              <button class="header-info-btn hidden" id="headerPartInfoBtn" type="button" data-role="part-info-open" aria-label="현재 순서 규칙 안내">i</button>
-              <div class="header-controls">
-                <div class="header-action-list hidden" id="headerActionList"></div>
-                <button class="rules-book-btn" id="headerRulesBookBtn" type="button" data-role="rules-book-open" style="display:none;" aria-label="규칙 열기">
-                  <svg class="rules-book-icon" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
-                    <path d="M3.5 34.5L10.5 11.5c7 2 14 0 21.5 5.8 7.5-5.8 14.5-3.8 21.5-5.8l7 23c-10.5-2-19.6-.7-28.5 6-8.9-6.7-18-8-28.5-6Z" />
-                    <path d="M32 17v23" />
-                    <path d="M8 30c9-2 17-.7 24 6" />
-                    <path d="M56 30c-9-2-17-.7-24 6" />
-                  </svg>
-                  <span class="sr-only">규칙</span>
-                </button>
-                <div id="bgmPanel" class="bgm-panel hidden" aria-label="배경음 제어">
-                  <button id="bgmMuteBtn" type="button" class="bgm-btn">음소거</button>
-                  <input id="bgmVolumeRange" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="음량" />
-                </div>
-                <div class="page-indicator">
-                  <span id="pageNow">1</span> / <span id="pageTotal">1</span>
-                </div>
-                <div class="nav-buttons">
-                  <button id="prevBtn" type="button" aria-label="이전">
-                    <img class="nav-arrow-icon" src="/assets/icons/arrow-back-ios.svg" alt="" aria-hidden="true" />
-                    <span class="sr-only">이전</span>
-                  </button>
-                  <button id="nextBtn" type="button" aria-label="다음">
-                    <img class="nav-arrow-icon" src="/assets/icons/arrow-forward-ios.svg" alt="" aria-hidden="true" />
-                    <span class="sr-only">다음</span>
-                  </button>
-                </div>
-              </div>
-            </header>
-
             <main class="slides-container" id="slidesContainer"></main>
+
+            <nav class="gm-floating-bar" aria-label="GM 조작">
+              <button class="gm-bar-btn gm-home-btn" type="button" data-role="gm-home-open" aria-label="홈">
+                <img class="gm-bar-icon" src="/assets/icons/home.svg" alt="" aria-hidden="true" />
+                <span class="sr-only">홈</span>
+              </button>
+              <div class="gm-more-wrap">
+                <button class="gm-bar-btn gm-more-btn hidden" id="gmMoreBtn" type="button" data-role="gm-more-toggle" aria-expanded="false" aria-controls="bgmPanel" aria-label="BGM 더보기">
+                  <span>더보기</span>
+                </button>
+                <div id="bgmPanel" class="bgm-panel hidden" aria-label="배경음 제어" aria-hidden="true">
+                  <div class="bgm-track-name" id="bgmTrackName">BGM 없음</div>
+                  <button id="bgmToggleBtn" type="button" class="bgm-btn">재생</button>
+                  <label class="bgm-volume-control">
+                    <span>음량</span>
+                    <input id="bgmVolumeRange" type="range" min="0" max="1" step="0.05" value="0.5" aria-label="음량" />
+                  </label>
+                </div>
+              </div>
+              <div class="header-action-list hidden" id="headerActionList" aria-label="게임별 액션"></div>
+              <div class="gm-bar-spacer" aria-hidden="true"></div>
+              <button class="header-info-btn hidden" id="headerPartInfoBtn" type="button" data-role="part-info-open" aria-label="현재 룰">
+                <span>현재 룰</span>
+              </button>
+              <button class="rules-book-btn" id="headerRulesBookBtn" type="button" data-role="rules-book-open" style="display:none;" aria-label="전체 룰">
+                <svg class="rules-book-icon" viewBox="0 0 64 48" aria-hidden="true" focusable="false">
+                  <path d="M3.5 34.5L10.5 11.5c7 2 14 0 21.5 5.8 7.5-5.8 14.5-3.8 21.5-5.8l7 23c-10.5-2-19.6-.7-28.5 6-8.9-6.7-18-8-28.5-6Z" />
+                  <path d="M32 17v23" />
+                  <path d="M8 30c9-2 17-.7 24 6" />
+                  <path d="M56 30c-9-2-17-.7-24 6" />
+                </svg>
+                <span>전체 룰</span>
+              </button>
+              <div class="nav-buttons">
+                <button id="prevBtn" type="button" aria-label="이전">
+                  <img class="nav-arrow-icon" src="/assets/icons/arrow-back-ios.svg" alt="" aria-hidden="true" />
+                  <span class="sr-only">이전</span>
+                </button>
+                <button id="nextBtn" type="button" aria-label="다음">
+                  <span class="sr-only">다음</span>
+                  <img class="nav-arrow-icon" src="/assets/icons/arrow-forward-ios.svg" alt="" aria-hidden="true" />
+                </button>
+              </div>
+              <div class="sr-only" aria-label="현재 슬라이드">
+                <span id="pageNow">1</span> / <span id="pageTotal">1</span>
+              </div>
+            </nav>
           </div>
         </div>
       </div>
