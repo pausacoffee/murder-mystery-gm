@@ -62,6 +62,15 @@ npm run dev:vercel
   - `피드백`
   - `mailto:` 기반 메일 앱 열기
 
+## 룰북 OCR 전처리
+스캔본 룰북은 먼저 로컬 OCR 파이프라인으로 작업 텍스트를 만든 뒤 게임 패키지 생성 단계로 넘깁니다.
+
+```bash
+npm run ocr:local -- --id <game-id> --input <pdf|image|folder>
+```
+
+결과는 `workbench/ocr/<game-id>/normalized.md`에 생성됩니다. 사용법과 설치 방법은 [로컬 OCR 파이프라인](tools/ocr/README.md)을 확인합니다.
+
 ## 타이머 사용 방법
 기본 타이머:
 

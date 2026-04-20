@@ -4,6 +4,7 @@
   "scripts": {
     "build": "node -e \"console.log('Static app: no build step required.')\"",
     "dev:vercel": "vercel dev",
+    "ocr:local": "bash tools/ocr/run-local-ocr.sh",
     "test": "vitest run --reporter=verbose",
     "test:watch": "vitest"
   },

@@ -1,4 +1,4 @@
 version: 1
-display_name: Rulebook Game Packager
-short_description: Build a game package from a scanned murder mystery rulebook.
-default_prompt: Convert the provided rulebook into this repository's catalog and per-game package structure, preserving uncertainty as placeholders instead of guessing.
+display_name: 룰북 게임 패키지 생성기
+short_description: 스캔본/OCR 룰북을 이 저장소의 GM 게임 패키지로 변환합니다.
+default_prompt: rulebook-game-packager skill을 사용해서 제공된 룰북 텍스트를 catalog와 게임 패키지 구조로 변환해 주세요. 스토리는 축약하지 말고, 불확실한 내용은 추측하지 말고 placeholder나 review note로 남겨 주세요.
